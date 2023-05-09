@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import BandInput from "./BandInput";
+import Band from "./Band";
 import { bandAdded } from "./bandsSlice";
 
 function BandsContainer() {
@@ -11,14 +12,14 @@ function BandsContainer() {
     dispatch(bandAdded(name));
   }
 
+  const bandsToDisplay = bands.map((band) => {
+    return <Band key={band.id} id={band.id} band={band.text} />;
+  });
+
   return (
     <div>
       <BandInput onBandSubmit={handleBandSubmit} />
-      <ul>
-        {bands.map((band) => (
-          <li key={band}>{band}</li>
-        ))}
-      </ul>
+      <ul>{bandsToDisplay}</ul>
     </div>
   );
 }
